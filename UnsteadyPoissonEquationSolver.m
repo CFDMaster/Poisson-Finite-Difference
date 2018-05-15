@@ -28,7 +28,7 @@ n=100 ; %No. of point along Left & Right sides
 IT=1;    %Current iteration No.
 MIT=100000; %Maximum allowabe iteration
 Dt=0.22; %time step
-eps=0.51e-3; %error
+eps=0.51e-4; %error
 errT=1000; %Error in two con. time ste p
 intAnimT=100; %interval of Animation
 %------------------------------------
@@ -120,19 +120,18 @@ while((IT<MIT)&&(errT>eps))
         xlabel('X Coordinate');
         ylabel('Y Coordinate');
         title(strcat('Temperature Profile at Mid-Secton ','  (','Time Step=',num2str(IT),' ,Time= ',num2str(Dt*(IT)),')'));
-        clabel(C,h)
         drawnow
         writeVideo(vidObjP, getframe(gca));
-        %Convergence Animation
-        figure(RT);
-        %----Plot  T Contour
-        semilogy(1:IT,error(1:IT),'- r');
-        xlabel('Iteration');
-        ylabel('Error');
-        title('Convergence History');
-        drawnow
-        writeVideo(vidObjR, getframe(gca));
-
+        %         %Convergence Animation
+        %         figure(RT);
+        %         %----Plot  T Contour
+        %         semilogy(1:IT,error(1:IT),'- r');
+        %         xlabel('Iteration');
+        %         ylabel('Error');
+        %         title('Convergence History');
+        %         drawnow
+        %         writeVideo(vidObjR, getframe(gca));
+        %
         pause(0.5);
     end
     IT=IT+1;
@@ -171,11 +170,15 @@ zlabel('Temperature')
 axis fill;
 % Profile of Temperature at mid-Section
 figure
-plot(X(floor(n/2),:),T(floor(n/2),:),'LineWidth',2)
+plot(X(floor(n/2),:),T(floor(n/2),:),'LineWidth',2);
+xlabel('X Coordinate');
+ylabel('Y Coordinate');
+title(strcat('Temperature Profile at Mid-Secton ','  (','Time Step=',num2str(IT),' ,Time= ',num2str(Dt*(IT)),')'));
+drawnow
 %Animation Output
 close(vidObjC);
-close(vidObjp);
-close(vidObjR);
+close(vidObjP);
+% close(vidObjR);
 % winopen('TemperatureContour.avi')
 display('AVI Movie(s) for Temperature Contour exported to the Current Directory')
 
